@@ -1,0 +1,10 @@
+jobs:
+  build:
+    docker:
+      - image: circleci/8u181-jdk
+    steps:
+      - run: |
+          bundle install
+          bundle exec rake db:schema:load
+          bundle exec rspec spec
+          bundle exec cucumber
