@@ -2,7 +2,7 @@ version: 2
 jobs:
    build:
      docker:
-      - image: 8-jdk
+      - image: 8u181-jdk
      steps:
        - checkout
        - run: echo "A first hello"
