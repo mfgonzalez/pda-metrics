@@ -2,7 +2,7 @@ version: 2
 jobs:
    build:
      docker:
-      - image: circleci/8u181-jdk
+      - image: circleci/8-jdk
      steps:
        - checkout
        - run: echo "A first hello"
