@@ -5,7 +5,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'edu.unirriter'
+group = 'edu.uniritter'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -15,9 +15,15 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-activemq'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-quartz'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.apache.camel:camel-spring-boot-starter:2.17.0'
+	implementation 'org.apache.camel:camel-spring-boot-starter:2.24.0'
+	implementation 'org.apache.camel:camel-gson:2.24.0'
+	implementation 'org.apache.camel:camel-amqp-starter:2.24.0'
+	implementation 'org.apache.camel:camel-aws-starter:2.24.0'
+
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
