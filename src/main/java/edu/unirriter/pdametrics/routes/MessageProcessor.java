@@ -1,4 +1,4 @@
-package edu.unirriter.pdametrics.message;
+package edu.unirriter.pdametrics.routes;
 
 import org.apache.activemq.Message;
 import org.springframework.stereotype.Component;

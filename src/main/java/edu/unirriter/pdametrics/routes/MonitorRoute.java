@@ -1,6 +1,5 @@
 package edu.unirriter.pdametrics.routes;
 
-import edu.unirriter.pdametrics.message.MessageProcessor;
 import org.apache.activemq.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;

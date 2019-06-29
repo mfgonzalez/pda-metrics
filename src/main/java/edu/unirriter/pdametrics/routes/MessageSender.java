@@ -1,4 +1,4 @@
-package edu.unirriter.pdametrics.message;
+package edu.unirriter.pdametrics.routes;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
