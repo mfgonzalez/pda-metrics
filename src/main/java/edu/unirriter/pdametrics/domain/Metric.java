@@ -1,9 +1,16 @@
 package edu.unirriter.pdametrics.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Metric {
 
+    @Id
     private UUID id;
     private String name;
     private Long value;
@@ -34,4 +41,14 @@ public class Metric {
     public UUID getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Metric{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", value=" + value +
+                '}';
+    }
+
 }

@@ -9,9 +9,9 @@ public class MessageSender extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("{{route.to.alert}}") //parte anterior da rota
+        from("{{route.from.metric}}")
                 .marshal().json(JsonLibrary.Gson, true)
-                .log("enviando alerta")
+                .log("enviando alerta ${body}" )
                 .to("{{route.to.alert}}");
     }
 

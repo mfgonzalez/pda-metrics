@@ -1,21 +1,35 @@
 package edu.unirriter.pdametrics.controller;
 
 
+import edu.unirriter.pdametrics.domain.Alert;
 import edu.unirriter.pdametrics.domain.Metric;
+import edu.unirriter.pdametrics.dto.MetricDto;
 import edu.unirriter.pdametrics.service.MetricsService;
+import org.apache.camel.ProducerTemplate;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 
 @RestController
 public class MetricsController {
 
     @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private MetricsService metricService;
 
-    @GetMapping(path = "/metric")
+    @Autowired
+    ProducerTemplate producerTemplate;
+
+    @GetMapping(path = "/metrics")
     public List<Metric> getAll() {
         return metricService.getAll();
     }
@@ -26,12 +40,38 @@ public class MetricsController {
     }
 
     @PostMapping(path = "/metric")
-    public Metric create(@RequestBody Metric metric) {
-        return metricService.create(metric);
+    public Metric create(@RequestBody MetricDto metricDto) {
+        producerTemplate.sendBody("{{route.from.metric}}", createAlert(metricDto));
+        return metricService.create(modelMapper.map(metricDto, Metric.class));
+    }
+
+    @PutMapping(path = "/metric")
+    public Metric update(@RequestBody MetricDto metricDto) {
+        return metricService.update(modelMapper.map(metricDto, Metric.class));
     }
 
     @DeleteMapping(path = "/metric/{id}")
     public void delete(@PathVariable("id") UUID id) {
         metricService.delete(id);
     }
+
+    private Alert createAlert(MetricDto metricDto) {
+        Date date = new Date();
+        return new Alert(
+                getIsoDateTime(date),
+                date.getTime(),
+                "grupo1",
+                metricDto.getName(),
+                String.valueOf(metricDto.getValue())
+        );
+
+    }
+
+    private String getIsoDateTime(Date date) {
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        return df.format(date);
+    }
+
 }

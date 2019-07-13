@@ -1,29 +1,36 @@
 package edu.unirriter.pdametrics.domain;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.io.Serializable;
 
-public class Alert {
+public class Alert implements Serializable {
 
-    private LocalDateTime dateTime;
-    private LocalTime timestamp;
+    private String dateIso8601;
+    private Long timestamp;
     private String source;
     private String name;
     private String value;
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public Alert(String dateIso8601, Long timestamp, String source, String name, String value) {
+        this.dateIso8601 = dateIso8601;
+        this.timestamp = timestamp;
+        this.source = source;
+        this.name = name;
+        this.value = value;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public String getDateIso8601() {
+        return dateIso8601;
     }
 
-    public LocalTime getTimestamp() {
+    public void setDateIso8601(String dateIso8601) {
+        this.dateIso8601 = dateIso8601;
+    }
+
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalTime timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -49,6 +56,17 @@ public class Alert {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Alert{" +
+                "dateIso8601='" + dateIso8601 + '\'' +
+                ", timestamp=" + timestamp +
+                ", source='" + source + '\'' +
+                ", name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                '}';
     }
 
 }
