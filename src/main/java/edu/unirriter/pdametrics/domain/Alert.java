@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Alert implements Serializable {
 
-    private String dateIso8601;
+    private String date;
     private Long timestamp;
     private String source;
     private String name;
     private String value;
 
     public Alert(String dateIso8601, Long timestamp, String source, String name, String value) {
-        this.dateIso8601 = dateIso8601;
+        this.date = dateIso8601;
         this.timestamp = timestamp;
         this.source = source;
         this.name = name;
@@ -19,11 +19,11 @@ public class Alert implements Serializable {
     }
 
     public String getDateIso8601() {
-        return dateIso8601;
+        return date;
     }
 
     public void setDateIso8601(String dateIso8601) {
-        this.dateIso8601 = dateIso8601;
+        this.date = dateIso8601;
     }
 
     public Long getTimestamp() {
@@ -61,7 +61,7 @@ public class Alert implements Serializable {
     @Override
     public String toString() {
         return "Alert{" +
-                "dateIso8601='" + dateIso8601 + '\'' +
+                "date='" + date + '\'' +
                 ", timestamp=" + timestamp +
                 ", source='" + source + '\'' +
                 ", name='" + name + '\'' +

@@ -40,14 +40,15 @@ public class MetricsController {
     }
 
     @PostMapping(path = "/metric")
-    public Metric create(@RequestBody MetricDto metricDto) {
-        producerTemplate.sendBody("{{route.from.metric}}", createAlert(metricDto));
-        return metricService.create(modelMapper.map(metricDto, Metric.class));
+    public Metric create(@RequestBody Metric metric) {
+        producerTemplate.sendBody("{{route.from.metric}}", createAlert(metric));
+        return metricService.create(metric);
     }
 
     @PutMapping(path = "/metric")
-    public Metric update(@RequestBody MetricDto metricDto) {
-        return metricService.update(modelMapper.map(metricDto, Metric.class));
+    public Metric update(@RequestBody Metric metric) {
+        producerTemplate.sendBody("{{route.from.metric}}", createAlert(metric));
+        return metricService.update(metric);
     }
 
     @DeleteMapping(path = "/metric/{id}")
@@ -55,14 +56,14 @@ public class MetricsController {
         metricService.delete(id);
     }
 
-    private Alert createAlert(MetricDto metricDto) {
+    private Alert createAlert(Metric metric) {
         Date date = new Date();
         return new Alert(
                 getIsoDateTime(date),
                 date.getTime(),
                 "grupo1",
-                metricDto.getName(),
-                String.valueOf(metricDto.getValue())
+                metric.getName(),
+                String.valueOf(metric.getValue())
         );
 
     }
